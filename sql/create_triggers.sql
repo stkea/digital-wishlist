@@ -1,0 +1,33 @@
+DELIMITER $$
+CREATE TRIGGER before_insert_wl
+BEFORE INSERT ON Wishlist
+FOR EACH ROW
+BEGIN 
+	IF new.Id = "" THEN 
+	SET new.Id=uuid();
+	END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER before_insert_w
+BEFORE INSERT ON Wish
+FOR EACH ROW
+BEGIN 
+	IF new.Id = "" THEN 
+	SET new.Id=uuid();
+	END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER before_insert_pr
+BEFORE INSERT ON Product
+FOR EACH ROW
+BEGIN 
+	IF new.Id = "" THEN 
+	SET new.Id=uuid();
+	END IF;
+END
+$$
+DELIMITER ;
