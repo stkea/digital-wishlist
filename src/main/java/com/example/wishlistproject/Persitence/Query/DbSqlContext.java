@@ -3,20 +3,30 @@ package com.example.wishlistproject.Persitence.Query;
 import com.example.wishlistproject.Persitence.Connection.DbConnection;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
 @Service
-public class MySqlQueryContext {
-    public ResultSet runQuery(String query){
+public class DbSqlContext implements IDbSqlContext {
+    @Override
+    public ResultSet runQuery(String sql){
         var dbConnector = DbConnection.getInstance(url,username,password);
         var con = dbConnector.get();
         try {
-            return con.createStatement().executeQuery(query);
+            return con.prepareStatement(sql).executeQuery();
         } catch (SQLException e) {
             return null;
+        }
+    }
+
+    @Override
+    public boolean runStatement(String sql){
+        var dbConnector = DbConnection.getInstance(url,username,password);
+        var con = dbConnector.get();
+        try {
+            return con.prepareStatement(sql).execute();
+        } catch (SQLException e) {
+            return false;
         }
     }
 
