@@ -1,4 +1,4 @@
-package com.example.wishlistproject.Persitence.Query;
+package com.example.wishlistproject.Repository.Query;
 
 import java.sql.ResultSet;
 

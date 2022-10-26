@@ -1,4 +1,4 @@
-package com.example.wishlistproject.Persitence.Connection;
+package com.example.wishlistproject.Repository.Connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

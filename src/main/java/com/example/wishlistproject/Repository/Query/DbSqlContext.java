@@ -1,6 +1,6 @@
-package com.example.wishlistproject.Persitence.Query;
+package com.example.wishlistproject.Repository.Query;
 
-import com.example.wishlistproject.Persitence.Connection.DbConnection;
+import com.example.wishlistproject.Repository.Connection.DbConnection;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.sql.ResultSet;
