@@ -7,7 +7,6 @@ import com.example.wishlistproject.Repository.CRUD.Get.IGetter;
 import com.example.wishlistproject.Repository.CRUD.Remove.IRemover;
 import com.example.wishlistproject.Repository.CRUD.Update.IUpdater;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -46,22 +45,22 @@ public class CRUDManager implements ICRUDManager{
 
     @Override
     public boolean removeWishlistById(String id) {
-        return false;
+        return remover.removeWishlistById(id);
     }
 
     @Override
     public boolean removeWish(String id) {
-        return false;
+        return remover.removeWishById(id);
     }
 
     @Override
     public boolean updateWishlist(Wishlist wishlist) {
-        return false;
+        return updater.updateWishlist(wishlist);
     }
 
     @Override
     public boolean updateWish(Wish wish) {
-        return false;
+        return updater.updateWish(wish);
     }
 
     private final IAdder adder;

@@ -2,56 +2,29 @@ package com.example.wishlistproject.Repository.CRUD.Update;
 
 import com.example.wishlistproject.Models.Wish;
 import com.example.wishlistproject.Models.Wishlist;
-import com.example.wishlistproject.Repository.Query.IDbSqlContext;
-import com.example.wishlistproject.Services.Converters.IWishlistConverter;
+import com.example.wishlistproject.Repository.CRUD.Add.IAdder;
+import com.example.wishlistproject.Repository.CRUD.Remove.IRemover;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
 
 @Service
 public class DbUpdater implements IUpdater{
-    public DbUpdater(IDbSqlContext sqlContext, IWishlistConverter converter) {
-        this.sqlContext = sqlContext;
-        this.converter = converter;
+    public DbUpdater(IAdder adder, IRemover remover) {
+        this.adder = adder;
+        this.remover = remover;
     }
 
     @Override
     public boolean updateWishlist(Wishlist wishlist) {
-        if(!removeWishlist(wishlist.getId()))
-            return false;
-        if(!addWishlist(wishlist))
-            return false;
-        return true;
+        return remover.removeWishlistById(wishlist.getId())
+                && adder.addWishlist(wishlist);
     }
 
     @Override
     public boolean updateWish(Wish wish) {
-        return false;
+        return remover.removeWishById(wish.getId())
+                && adder.addWish(wish.getWishlistId(),wish);
     }
 
-    private boolean removeWishlist(String id){
-        var result = sqlContext
-                .runStatement(String.format("""
-                        REMOVE FROM Wishlist w
-                        WHERE w.Id = %s; 
-                        """,id));
-        return result;
-    }
-
-    private boolean removeWish(String id){
-        var result = sqlContext
-                .runStatement(String.format("""
-                        REMOVE FROM Wish w
-                        WHERE w.Id = %s; 
-                        """,id));
-        return result;
-    }
-
-    private boolean addWishlist(Wishlist w){
-        var sql = converter.convert(w);
-        return sqlContext.runStatement(sql);
-    }
-
-    private final IDbSqlContext sqlContext;
-    private final IWishlistConverter converter;
+    private final IAdder adder;
+    private final IRemover remover;
 }
