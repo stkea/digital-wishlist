@@ -5,17 +5,12 @@ public class Wish {
         this.id = id;
     }
     private final String id;
-    private Product product;
+    private String productTitle;
+    private double productPrice;
+    private String productImageURL;
 
     public String getId() {
         return id;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

@@ -9,6 +9,22 @@ public class Wishlist {
         wishes = new ArrayList<>();
     }
     private final String id;
+    private String title;
+    private String creatorName;
+    private String expiration;
+
+    public String getExpiration() {
+        return expiration;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
     private List<Wish> wishes;
 
     public String getId() {
