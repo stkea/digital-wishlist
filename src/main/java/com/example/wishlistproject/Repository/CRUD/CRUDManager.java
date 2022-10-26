@@ -20,12 +20,12 @@ public class CRUDManager implements ICRUDManager{
 
     @Override
     public boolean addWishlist(Wishlist wishlist) {
-        return adder.addWishlist(wishlist);
+        return adder.insertWishlist(wishlist);
     }
 
     @Override
     public boolean addWish(String wishlistId, Wish w) {
-        return adder.addWish(wishlistId, w);
+        return adder.insertWish(wishlistId, w);
     }
 
     @Override

@@ -9,6 +9,5 @@ public interface IGetter {
     Wishlist getWishlistById(String id);
     List<Wishlist> getAllWishlist();
     Wish getWishById(String id);
-    List<Wish> getAllWishes();
-
+    List<Wish> getWishesByWishlistID(String id);
 }

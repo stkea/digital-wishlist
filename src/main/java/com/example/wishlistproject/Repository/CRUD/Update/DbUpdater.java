@@ -16,15 +16,14 @@ public class DbUpdater implements IUpdater{
     @Override
     public boolean updateWishlist(Wishlist wishlist) {
         return remover.removeWishlistById(wishlist.getId())
-                && adder.addWishlist(wishlist);
+                && adder.insertWishlist(wishlist);
     }
 
     @Override
     public boolean updateWish(Wish wish) {
         return remover.removeWishById(wish.getId())
-                && adder.addWish(wish.getWishlistId(),wish);
+                && adder.insertWish(wish.getWishlistId(),wish);
     }
-
     private final IAdder adder;
     private final IRemover remover;
 }

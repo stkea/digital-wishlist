@@ -4,6 +4,6 @@ import com.example.wishlistproject.Models.Wish;
 import com.example.wishlistproject.Models.Wishlist;
 
 public interface IAdder {
-    boolean addWishlist(Wishlist wishlist);
-    boolean addWish(String wishlistId, Wish w);
+    boolean insertWishlist(Wishlist wishlist);
+    boolean insertWish(String wishlistId, Wish w);
 }

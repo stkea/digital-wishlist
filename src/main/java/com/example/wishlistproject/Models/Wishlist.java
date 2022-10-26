@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wishlist {
-    public Wishlist(String id) {
+    public Wishlist(String id, String title, String creator, String expiration) {
         this.id = id;
+        this.title = title;
+        this.creatorName = creator;
+        this.expiration = expiration;
         wishes = new ArrayList<>();
     }
     private final String id;
@@ -33,5 +36,9 @@ public class Wishlist {
 
     public List<Wish> getWishes() {
         return wishes;
+    }
+
+    public void setWishes(List<Wish> wishes) {
+        this.wishes = wishes;
     }
 }
