@@ -44,7 +44,7 @@ public class Converter implements IConverter {
             String productTitle = result.getString("ProductTitle");
 
             // TODO: Change from int to double in database script
-            double productPrice = result.getInt("ProductPrice");
+            double productPrice = result.getDouble("ProductPrice");
 
             return new Wish(id, url, wishlistId, reserved, reservedTo, productTitle, productPrice);
         } catch (SQLException e) {
