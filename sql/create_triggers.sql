@@ -25,7 +25,7 @@ CREATE TRIGGER before_insert_pr
 BEFORE INSERT ON Product
 FOR EACH ROW
 BEGIN 
-	IF new.Id = "" THEN 
+	IF new.Id IS NULL THEN
 	SET new.Id=uuid();
 	END IF;
 END
