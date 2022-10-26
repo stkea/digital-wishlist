@@ -3,7 +3,7 @@ CREATE TRIGGER before_insert_wl
 BEFORE INSERT ON Wishlist
 FOR EACH ROW
 BEGIN 
-	IF new.Id = "" THEN 
+	IF new.Id IS NULL THEN
 	SET new.Id=uuid();
 	END IF;
 END
@@ -14,7 +14,7 @@ CREATE TRIGGER before_insert_w
 BEFORE INSERT ON Wish
 FOR EACH ROW
 BEGIN 
-	IF new.Id = "" THEN 
+	IF new.Id IS NULL THEN
 	SET new.Id=uuid();
 	END IF;
 END
