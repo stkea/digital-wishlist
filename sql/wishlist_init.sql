@@ -1,5 +1,11 @@
+DROP DATABASE IF EXISTS KEA_Wishlist;
+
+CREATE DATABASE KEA_Wishlist;
+
+USE KEA_Wishlist;
+
 CREATE TABLE Wishlist(
-	Id char(36) NULL DEFAULT "",
+	Id char(36) NOT NULL,
 	Name text,
 	Creator text,
 	Expiration date,
@@ -10,7 +16,7 @@ CREATE INDEX idx_wlid
 ON Wishlist(Id);
 
 CREATE TABLE Wish(
-	Id char(36) NULL DEFAULT "",
+	Id char(36) NOT NULL,
 	Url text,
 	WishlistId char(36),
 	Reserved int(2) DEFAULT 0,
@@ -23,7 +29,7 @@ CREATE INDEX idx_wid
 ON Wish(Id);
 
 CREATE TABLE Product(
-	Id char(36) NULL DEFAULT "",
+	Id char(36) NOT NULL,
 	Name text,
 	Price int,
 	WishId char(36),
