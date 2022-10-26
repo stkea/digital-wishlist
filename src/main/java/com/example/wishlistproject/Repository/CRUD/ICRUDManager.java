@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface ICRUDManager {
     boolean addWishlist(Wishlist wishlist);
-    boolean addWish(String wishlistId, Wish w);
     Wishlist getWishlistById(String id);
+    boolean removeWishlistById(String id);
+    boolean updateWishlist(Wishlist wishlist);
+    boolean addWish(String wishlistId, Wish w);
     Wish getWishById(String id);
     List<Wishlist> getAllWishlist();
-    boolean removeWishlistById(String id);
     boolean removeWish(String id);
-    boolean updateWishlist(Wishlist wishlist);
     boolean updateWish(Wish wish);
 }

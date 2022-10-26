@@ -5,5 +5,5 @@ import com.example.wishlistproject.Models.Wishlist;
 
 public interface IAdder {
     boolean addWishlist(Wishlist wishlist);
-    String addWish(String wishlistId, Wish w);
+    boolean addWish(String wishlistId, Wish w);
 }

@@ -17,7 +17,7 @@ public class DBAdder implements IAdder{
     }
 
     @Override
-    public String addWish(String wishlistId, Wish w) {
+    public boolean addWish(String wishlistId, Wish w) {
         /*
         String result = sqlContext.runStatement(String.format("""
                 INSERT INTO Wish(Id,Url,WishlistId)
@@ -25,7 +25,7 @@ public class DBAdder implements IAdder{
                 """, w.getId()))
 
          */
-        return "";
+        return false;
     }
 
     private IDbSqlContext sqlContext;
