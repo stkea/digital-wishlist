@@ -3,14 +3,12 @@ package com.example.wishlistproject.Repository.CRUD.Update;
 import com.example.wishlistproject.Models.Wish;
 import com.example.wishlistproject.Models.Wishlist;
 import com.example.wishlistproject.Repository.Query.IDbSqlContext;
-import com.example.wishlistproject.Services.Converters.IWishlistConverter;
+import com.example.wishlistproject.Services.Converters.IConverter;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
 
 @Service
 public class DbUpdater implements IUpdater{
-    public DbUpdater(IDbSqlContext sqlContext, IWishlistConverter converter) {
+    public DbUpdater(IDbSqlContext sqlContext, IConverter converter) {
         this.sqlContext = sqlContext;
         this.converter = converter;
     }
@@ -48,10 +46,10 @@ public class DbUpdater implements IUpdater{
     }
 
     private boolean addWishlist(Wishlist w){
-        var sql = converter.convert(w);
+        var sql = converter.convertWishlist(w);
         return sqlContext.runStatement(sql);
     }
 
     private final IDbSqlContext sqlContext;
-    private final IWishlistConverter converter;
+    private final IConverter converter;
 }

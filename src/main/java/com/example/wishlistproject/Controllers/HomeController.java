@@ -1,5 +1,6 @@
 package com.example.wishlistproject.Controllers;
 
+import com.example.wishlistproject.Models.Wish;
 import com.example.wishlistproject.Repository.CRUD.Get.IGetter;
 import com.example.wishlistproject.Repository.CRUD.ICRUDManager;
 import org.springframework.ui.Model;
