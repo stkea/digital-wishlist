@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Create wishlist</h1>
+    <form action="#" th:action="@{/wishlist/create}" method="post" th:object="${wishlist}">
+        <input type="hidden" th:field="*{id}">
+        <label>Titel</label>
+        <input type="text" th:field="*{title}">
+        <label>Navn på opretter</label>
+        <input type="text" th:field="*{creatorName}">
+        <label>Udløbsdato</label>
+        <input type="date" th:field="*{expiration}">
+        <input type="submit">Register</input>
+    </form>
+</body>
+</html>

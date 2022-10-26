@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CRUDManager implements ICRUDManager{
+public class CRUDManager implements IDbManager {
     public CRUDManager(IAdder adder, IGetter getter, IRemover remover, IUpdater updater) {
         this.adder = adder;
         this.getter = getter;

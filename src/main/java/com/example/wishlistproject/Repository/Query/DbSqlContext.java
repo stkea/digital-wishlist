@@ -15,6 +15,7 @@ public class DbSqlContext implements IDbSqlContext {
         try {
             return con.prepareStatement(sql).executeQuery();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -26,6 +27,7 @@ public class DbSqlContext implements IDbSqlContext {
         try {
             return con.prepareStatement(sql).execute();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }

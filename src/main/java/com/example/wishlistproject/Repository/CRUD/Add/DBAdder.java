@@ -33,13 +33,13 @@ public class DBAdder implements IAdder{
     private Boolean runInsertWishQuery(Wish w, String wishlistId) {
         return sqlContext.runStatement(String.format("""
                 INSERT INTO Wish(Id,Url,ProductTitle,ProductPrice,WishlistId)
-                VALUES(%s, %s, %s, %s, %s);
+                VALUES('%s', '%s', '%s', %f, '%s');
                 """, w.getId(), w.getProductImageURL(), w.getProductTitle(), w.getProductPrice(), wishlistId));
     }
     private Boolean runInsertWishlistQuery(Wishlist wishlist) {
         return sqlContext.runStatement(String.format("""
-                INSERT INTO Wishlist (Id,Name,Creator,Expiration)
-                VALUES(%s, %s, %s, %s); 
+                INSERT INTO Wishlist (Id,Title,Creator,Expiration)
+                VALUES('%s', '%s', '%s', '%s'); 
                 """, wishlist.getId(), wishlist.getTitle(), wishlist.getCreatorName(), wishlist.getExpiration()));
     }
 

@@ -10,6 +10,15 @@ public class Wish {
         this.productTitle = productTitle;
         this.productPrice = productPrice;
     }
+
+    public Wish(String id){
+        this.id = id;
+    }
+
+    public Wish(){
+
+    }
+
     private String id;
     private String productImageURL;
     private String wishlistId;

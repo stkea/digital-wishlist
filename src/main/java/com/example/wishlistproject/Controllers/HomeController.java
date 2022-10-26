@@ -1,29 +1,21 @@
 package com.example.wishlistproject.Controllers;
 
-import com.example.wishlistproject.Models.Wish;
-import com.example.wishlistproject.Repository.CRUD.Get.IGetter;
-import com.example.wishlistproject.Repository.CRUD.ICRUDManager;
-import org.springframework.ui.Model;
+import com.example.wishlistproject.Repository.CRUD.IDbManager;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-/*
-    For testing purposes only
- */
 
-@RestController
+@Controller
 public class HomeController {
 
-    public HomeController(ICRUDManager manager) {
+    public HomeController(IDbManager manager) {
         this.manager = manager;
     }
 
     @GetMapping("/")
-    public String home(Model model){
-        var list = manager.getAllWishlist();
-        model.addAttribute("wishlists",list);
+    public String home(){
         return "index";
     }
 
-    private final ICRUDManager manager;
+    private final IDbManager manager;
 }

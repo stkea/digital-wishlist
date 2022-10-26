@@ -3,32 +3,27 @@ package com.example.wishlistproject.Repository.CRUD.Get;
 import com.example.wishlistproject.Models.Wish;
 import com.example.wishlistproject.Models.Wishlist;
 import com.example.wishlistproject.Repository.Query.IDbSqlContext;
-import com.example.wishlistproject.Services.Converters.IConverter;
+import com.example.wishlistproject.Services.Factories.IWishFactory;
+import com.example.wishlistproject.Services.Factories.IWishlistFactory;
 import org.springframework.stereotype.Service;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-    Dummy service
-
-    Delete this when implementing IGetter
- */
-
 @Service
 public class DBGetter implements IGetter{
-    public DBGetter(IDbSqlContext sqlContext, IConverter converter) {
+    public DBGetter(IDbSqlContext sqlContext, IWishlistFactory wishlistFactory, IWishFactory wishFactory) {
         this.sqlContext = sqlContext;
-        this.converter = converter;
+        this.wishlistFactory = wishlistFactory;
+        this.wishFactory = wishFactory;
     }
     @Override
     public Wishlist getWishlistById(String id) {
         ResultSet data = sqlContext.runQuery(String.format("""
                 SELECT * FROM Wishlist w WHERE w.Id = '%s';
                 """, id));
-        Wishlist wishlist = converter.convertWishlist(data);
+        Wishlist wishlist = wishlistFactory.fromResultSet(data);
         // Retrieve wishes for the wishlist and append them to the wishlist
         List<Wish> wishes = getWishesByWishlistID(id);
         wishlist.setWishes(wishes);
@@ -43,7 +38,7 @@ public class DBGetter implements IGetter{
                 """);
         try {
             while (data.next()) {
-                Wishlist wishlist = converter.convertWishlist(data);
+                Wishlist wishlist = wishlistFactory.fromResultSet(data);
                 // Retrieve wishes for the current wishlist and append them to the wishlist
                 List<Wish> wishes = getWishesByWishlistID(wishlist.getId());
                 wishlist.setWishes(wishes);
@@ -61,7 +56,7 @@ public class DBGetter implements IGetter{
                 SELECT * FROM Wish w
                 WHERE w.Id = '%s';
                 """, id));
-        Wish wish = converter.convertWish(data);
+        Wish wish = wishFactory.fromResultSet(data);
         return wish;
     }
 
@@ -74,7 +69,7 @@ public class DBGetter implements IGetter{
                 """, id));
         try {
             while (data.next()) {
-                Wish wish = converter.convertWish(data);
+                Wish wish = wishFactory.fromResultSet(data);
                 wishes.add(wish);
             }
         } catch (SQLException e) {
@@ -84,6 +79,7 @@ public class DBGetter implements IGetter{
         return wishes;
     }
 
-    private IDbSqlContext sqlContext;
-    private IConverter converter;
+    private final IDbSqlContext sqlContext;
+    private final IWishlistFactory wishlistFactory;
+    private final IWishFactory wishFactory;
 }
