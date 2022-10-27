@@ -40,18 +40,10 @@ public class WishlistController {
         return "redirect:err";
     }
 
-    @GetMapping("/wishlist/remove")
-    public String removeGet(@RequestParam(value = "id") String id, Model model){
-        var wl = dbManager.getWishlistById(id);
-        if(wl == null)
-            return "err";
-        model.addAttribute("wishlist",wl);
-        return "removeConfirmation";
-    }
 
     @PostMapping("/wishlist/remove")
-    public String removePost(@ModelAttribute("wishlist") Wishlist wl){
-        if(dbManager.removeWishlistById(wl.getId()))
+    public String removePost(@RequestParam(value = "id") String id){
+        if(dbManager.removeWishlistById(id))
             return "redirect:/wishlists";
         return "err";
     }
