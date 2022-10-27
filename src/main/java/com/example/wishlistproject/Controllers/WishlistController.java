@@ -6,10 +6,7 @@ import com.example.wishlistproject.Services.Factories.IWishlistFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WishlistController {
@@ -32,27 +29,29 @@ public class WishlistController {
     public String createPost(@ModelAttribute("wishlist") Wishlist wl){
         var result = dbManager.addWishlist(wl);
         if(result)
-            return "/wishlists";
-        return "index";
+            return "redirect:/wishlists";
+        return "redirect:err";
     }
 
-    @GetMapping("/remove/{id}")
-    public String removeGet(@PathVariable("id") String id, Model model){
+    @GetMapping("/wishlist/remove")
+    public String removeGet(@RequestParam(value = "id") String id, Model model){
         var wl = dbManager.getWishlistById(id);
-        model.addAttribute("wishlist");
+        if(wl == null)
+            return "err";
+        model.addAttribute("wishlist",wl);
         return "removeConfirmation";
     }
 
-    @PostMapping("/removeWishlist")
+    @PostMapping("/wishlist/remove")
     public String removePost(@ModelAttribute("wishlist") Wishlist wl){
-        var result = dbManager.updateWishlist(wl);
+        var result = dbManager.removeWishlistById(wl.getId());
         if(result)
-            return "wishlists";
-        return "Some error page";
+            return "redirect:/wishlists";
+        return "err";
     }
 
-    @GetMapping("/update/{id}")
-    public String updateGet(@PathVariable("id") String id, Model model){
+    @GetMapping("/update")
+    public String updateGet(@RequestParam("id") String id, Model model){
         var wl = dbManager.getWishlistById(id);
         model.addAttribute("wishlist");
         return "updateForm";
@@ -62,8 +61,8 @@ public class WishlistController {
     public String updatePost(@ModelAttribute("wishlist") Wishlist wl){
         var result = dbManager.updateWishlist(wl);
         if(result)
-            return "wishlists";
-        return "Some error page";
+            return "redirect:wishlists";
+        return "err";
     }
 
     @Autowired

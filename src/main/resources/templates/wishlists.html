@@ -10,6 +10,7 @@
       <span th:text="${wl.getTitle()}"> </span>
       <span th:text="${wl.getCreatorName()}"></span>
       <span th:text="${wl.getExpiration()}"></span>
+      <a th:href="@{/wishlist/remove(id=${wl.id})}">Delete</a>
   </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.example.wishlistproject.Repository.CRUD.Remove;
 
-import com.example.wishlistproject.Repository.Query.IDbSqlContext;
+import com.example.wishlistproject.Repository.DbContext.IDbSqlContext;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,13 +11,24 @@ public class DbRemover implements IRemover {
 
     @Override
     public boolean removeWishlistById(String id) {
+        return removeAssociatedWishes(id) &&
+                removeWishList(id);
+    }
+
+    private boolean removeAssociatedWishes(String id){
+        var result = sqlContext.runStatement(String.format("""
+                DELETE FROM Wish
+                WHERE WishlistId='%s';
+                """,id));
+        return result;
+    }
+
+    private boolean removeWishList(String id){
         var result = sqlContext
                 .runStatement(String.format("""
-                        REMOVE FROM Wish
-                        WHERE wishlistId='%s';
-                        REMOVE FROM Wishlist
-                        WHERE Id = '%s';
-                        """,id,id));
+                        DELETE FROM Wishlist
+                        WHERE Id='%s';
+                        """,id));
         return result;
     }
 
@@ -25,7 +36,7 @@ public class DbRemover implements IRemover {
     public boolean removeWishById(String id) {
         var result = sqlContext
                 .runStatement(String.format("""
-                        REMOVE FROM Wish
+                        DELETE FROM Wish
                         WHERE Id = '%s';
                         """,id));
         return result;

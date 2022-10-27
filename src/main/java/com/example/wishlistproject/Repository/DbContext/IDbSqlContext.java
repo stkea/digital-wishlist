@@ -1,4 +1,4 @@
-package com.example.wishlistproject.Repository.Query;
+package com.example.wishlistproject.Repository.DbContext;
 
 import java.sql.ResultSet;
 

@@ -2,7 +2,7 @@ package com.example.wishlistproject.Repository.CRUD.Get;
 
 import com.example.wishlistproject.Models.Wish;
 import com.example.wishlistproject.Models.Wishlist;
-import com.example.wishlistproject.Repository.Query.IDbSqlContext;
+import com.example.wishlistproject.Repository.DbContext.IDbSqlContext;
 import com.example.wishlistproject.Services.Factories.IWishFactory;
 import com.example.wishlistproject.Services.Factories.IWishlistFactory;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,16 @@ public class DBGetter implements IGetter{
         ResultSet data = sqlContext.runQuery(String.format("""
                 SELECT * FROM Wishlist w WHERE w.Id = '%s';
                 """, id));
+        try {
+            if(!data.next())
+                return null;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
         Wishlist wishlist = wishlistFactory.fromResultSet(data);
+        if(wishlist == null)
+            return null;
         // Retrieve wishes for the wishlist and append them to the wishlist
         List<Wish> wishes = getWishesByWishlistID(id);
         wishlist.setWishes(wishes);
@@ -56,6 +65,13 @@ public class DBGetter implements IGetter{
                 SELECT * FROM Wish w
                 WHERE w.Id = '%s';
                 """, id));
+        try {
+            if(!data.next())
+                return null;
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
         Wish wish = wishFactory.fromResultSet(data);
         return wish;
     }

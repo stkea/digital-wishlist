@@ -2,7 +2,7 @@ package com.example.wishlistproject.Repository.CRUD.Add;
 
 import com.example.wishlistproject.Models.Wish;
 import com.example.wishlistproject.Models.Wishlist;
-import com.example.wishlistproject.Repository.Query.IDbSqlContext;
+import com.example.wishlistproject.Repository.DbContext.IDbSqlContext;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package com.example.wishlistproject.Repository.Query;
+package com.example.wishlistproject.Repository.DbContext;
 
 import com.example.wishlistproject.Repository.Connection.DbConnection;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,11 +25,12 @@ public class DbSqlContext implements IDbSqlContext {
         var dbConnector = DbConnection.getInstance(url,username,password);
         var con = dbConnector.get();
         try {
-            return con.prepareStatement(sql).execute();
+            con.createStatement().execute(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
         }
+        return true;
     }
 
     @Value("${spring.datasource.url}")

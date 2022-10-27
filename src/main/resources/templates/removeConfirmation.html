@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Remove wishlist</title>
+</head>
+<body>
+    <p>Sikker på du vil slette <span style="color:red;" th:text="${wishlist.title}"></span>?</p>
+
+    <form action="#" th:action="@{/wishlist/remove}" method="post" th:object="${wishlist}">
+        <input type="hidden" th:field="*{id}">
+        <input type="submit">
+    </form>
+</body>
+</html>
