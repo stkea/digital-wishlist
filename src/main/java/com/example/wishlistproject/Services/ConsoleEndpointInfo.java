@@ -10,6 +10,7 @@ public class ConsoleEndpointInfo {
                 
                 Root: http://localhost:8080/
                 Wishlists overview: http://localhost:8080/wishlists
+                Wishes overview: http://localhost:8080/wish/wishes?wishlistId="hej med dig"
                 """);
     }
 }

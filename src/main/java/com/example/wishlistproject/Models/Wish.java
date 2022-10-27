@@ -31,8 +31,22 @@ public class Wish {
         return wishlistId;
     }
 
+    public void setWishlistId(String id){
+        this.wishlistId = id;
+    }
+
     public int getReserved() {
         return reserved;
+    }
+
+    public void reserve(String name){
+        reserved = 1;
+        reservedTo = name;
+    }
+
+    public void unReserve(){
+        reserved = 0;
+        reservedTo = "";
     }
 
     public String getReservedTo() {

@@ -9,9 +9,11 @@ import java.util.UUID;
 @Service
 public class WishFactory implements IWishFactory{
     @Override
-    public Wish empty(String wishlist) {
+    public Wish empty(String wishlistId) {
         var id = UUID.randomUUID().toString();
-        return new Wish(id);
+        var w = new Wish(id);
+        w.setWishlistId(wishlistId);
+        return w;
     }
 
     @Override

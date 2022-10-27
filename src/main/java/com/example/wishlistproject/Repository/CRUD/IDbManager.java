@@ -10,9 +10,11 @@ public interface IDbManager {
     Wishlist getWishlistById(String id);
     boolean removeWishlistById(String id);
     boolean updateWishlist(Wishlist wishlist);
+    List<Wish> getAllWishes(String wishlistId);
     boolean addWish(String wishlistId, Wish w);
     Wish getWishById(String id);
     List<Wishlist> getAllWishlist();
     boolean removeWish(String id);
     boolean updateWish(Wish wish);
+    boolean reserveWish(String wishId, String name);
 }

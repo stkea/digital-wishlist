@@ -42,10 +42,9 @@ public class WishlistController {
         return "removeConfirmation";
     }
 
-    @PostMapping("/wishlist/remove")
+    @PostMapping("/wishlist/1remove")
     public String removePost(@ModelAttribute("wishlist") Wishlist wl){
-        var result = dbManager.removeWishlistById(wl.getId());
-        if(result)
+        if(dbManager.removeWishlistById(wl.getId()))
             return "redirect:/wishlists";
         return "err";
     }
@@ -59,10 +58,9 @@ public class WishlistController {
 
     @PostMapping("/update")
     public String updatePost(@ModelAttribute("wishlist") Wishlist wl){
-        var result = dbManager.updateWishlist(wl);
-        if(result)
+        if(dbManager.updateWishlist(wl))
             return "redirect:wishlists";
-        return "err";
+        return "redirect:err";
     }
 
     @Autowired
