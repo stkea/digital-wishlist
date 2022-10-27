@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <!-- Defining fragment -->
+    <div
+      th:fragment="deleteModal(wl)"
+      class="z-50 hidden w-screen h-screen bg-opacity-60 bg-black flex items-center justify-center fixed inset-0"
+      th:id="'modal-' + ${wl.getId()}"
+    >
+      <div
+        class="flex flex-col justify-between w-[300px] h-[120px] p-4 rounded-md bg-white"
+      >
+        <p class="font-semibold">
+          Er du sikker på, at du vil slette
+          <span
+            class="text-indigo-700 font-bold text-lg"
+            th:text="${wl.getTitle()}"
+          ></span
+          >?
+        </p>
+        <div class="flex justify-end space-x-4">
+          <button
+            th:onclick="javascript:toggleModal([[${wl.getId()}]])"
+            class="p-2 w-[100px] flex justify-center rounded-md bg-indigo-500 font-bold text-white"
+          >
+            Luk
+          </button>
+          <form
+            action="#"
+            th:action="@{/wishlist/remove(id=${wl.id})}"
+            method="post"
+          >
+            <button
+              type="submit"
+              class="p-2 w-[100px] flex justify-center rounded-md bg-red-700 font-bold text-white"
+            >
+              Slet
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

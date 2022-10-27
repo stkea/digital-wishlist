@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Error</title>
   </head>
   <body>
-    <div class="w-full h-full" th:fragment="wish(title, creatorName, exp, id)">
+    <!-- Defining fragment -->
+    <div class="w-full h-full" th:fragment="wish(wishlist)">
       <div class="h-full grid p-4">
         <div class="flex flex-col space-y-2">
           <h1
-            th:text="${title}"
+            th:text="${wishlist.getTitle()}"
             class="text-2xl font-bold text-gray-700"
           ></h1>
           <div
@@ -17,22 +17,34 @@
           >
             <div class="flex flex-col">
               <div class="text-bold text-gray-600">Lavet af</div>
-              <div th:text="${creatorName}" class="text-gray-400"></div>
+              <div
+                th:text="${wishlist.getCreatorName()}"
+                class="text-gray-400"
+              ></div>
             </div>
             <div class="flex flex-col">
               <div class="text-bold text-gray-600">
                 <div class="float-right">Udløber</div>
               </div>
-              <div th:text="${exp}" class="text-gray-400"></div>
+              <div
+                th:text="${wishlist.getExpiration()}"
+                class="text-gray-400"
+              ></div>
             </div>
           </div>
         </div>
         <div class="flex justify-end">
-          <a
-            th:href="@{/wishlist/remove(id=${id})}"
+          <button
+            th:onclick="javascript:toggleModal([[${wishlist.getId()}]])"
+            class="bg-red-500 rounded-md w-[100px] flex justify-center items-center font-bold text-white"
+          >
+            Delete
+          </button>
+          <!-- <a
+            th:href="@{/wishlist/remove(id=${wishlist.id})}"
             class="bg-red-500 rounded-md w-[100px] flex justify-center items-center font-bold text-white"
             >Delete</a
-          >
+          > -->
         </div>
       </div>
     </div>
