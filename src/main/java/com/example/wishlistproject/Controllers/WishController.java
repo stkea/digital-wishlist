@@ -1,8 +1,8 @@
 package com.example.wishlistproject.Controllers;
 
-import com.example.wishlistproject.Models.Wish;
-import com.example.wishlistproject.Repository.CRUD.IDbManager;
-import com.example.wishlistproject.Services.Factories.IWishFactory;
+import com.example.wishlistproject.Models.Wishlist.Wish;
+import com.example.wishlistproject.Repository.Wishlist.IDbManager;
+import com.example.wishlistproject.Services.Factories.Wish.IWishFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,7 @@ public class WishController {
     public String get(@RequestParam String wishlistId, Model model){
         session.setAttribute("wishlistId",wishlistId);
         var w = dbManager.getAllWishes(wishlistId);
+        model.addAttribute("wishlistId",wishlistId);
         model.addAttribute("wishes",w);
         return "wishes";
     }
@@ -66,7 +67,7 @@ public class WishController {
         return "redirect:err";
     }
 
-    public String reserve(@RequestParam String name, String id, Model model){
+    public String reserve(@RequestParam String name, String id){
         if(dbManager.reserveWish(id,name))
             return "redirect:wish/wishes";
         return "redirect;err";

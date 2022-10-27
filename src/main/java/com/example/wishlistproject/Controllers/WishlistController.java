@@ -1,8 +1,8 @@
 package com.example.wishlistproject.Controllers;
 
-import com.example.wishlistproject.Models.Wishlist;
-import com.example.wishlistproject.Repository.CRUD.IDbManager;
-import com.example.wishlistproject.Services.Factories.IWishlistFactory;
+import com.example.wishlistproject.Models.Wishlist.Wishlist;
+import com.example.wishlistproject.Repository.Wishlist.IDbManager;
+import com.example.wishlistproject.Services.Factories.Wishlist.IWishlistFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

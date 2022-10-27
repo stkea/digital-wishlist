@@ -1,6 +1,6 @@
 package com.example.wishlistproject.Controllers;
 
-import com.example.wishlistproject.Repository.CRUD.IDbManager;
+import com.example.wishlistproject.Repository.Wishlist.IDbManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
