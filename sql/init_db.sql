@@ -12,8 +12,7 @@ CREATE TABLE Wishlist(
                          PRIMARY KEY(Id)
 );
 
-CREATE INDEX idx_wlid
-    ON Wishlist(Id);
+CREATE INDEX idx_wlid ON Wishlist(Id);
 
 CREATE TABLE Wish(
                      Id char(36) NOT NULL,
@@ -27,8 +26,17 @@ CREATE TABLE Wish(
                      CONSTRAINT FK_WL FOREIGN KEY (WishlistID) REFERENCES Wishlist(Id)
 );
 
-CREATE INDEX idx_wid
-    ON Wish(Id);
+CREATE INDEX idx_wid ON Wish(Id);
+   
+CREATE TABLE ShareToken(
+	Id char(36) NOT NULL,
+	WishlistId char(36) NOT NULL,
+	TokenLink text,
+	TokenKey text,
+	PRIMARY KEY(Id)
+);
+
+CREATE INDEX idx_sid ON ShareToken(Id);
 
 INSERT INTO Wishlist (Id,Title,Creator,Expiration)
 VALUES("0daedfab-06e5-442f-a1f2-22b7624679ef","Elliots ønsker", "Thomas hansen","2023-08-14");

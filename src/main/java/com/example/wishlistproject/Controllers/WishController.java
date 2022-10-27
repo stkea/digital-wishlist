@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 public class WishController {
     @GetMapping("wish/wishes")
     public String get(@RequestParam String wishlistId, Model model){
+        System.out.println(wishlistId);
         session.setAttribute("wishlistId",wishlistId);
         var w = dbManager.getAllWishes(wishlistId);
         model.addAttribute("wishlistId",wishlistId);
