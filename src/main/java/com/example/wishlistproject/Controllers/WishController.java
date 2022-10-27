@@ -12,17 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 
-/*
-    Benytter HttpSession til at gemme wishlistId, så vi slipper for at skulle
-    kaste rundt med en masse model attributter.
-
-    Boilerplate til html: <p th:text="${session.wishlistId}" />
- */
-
 @Controller
 public class WishController {
     @GetMapping("wish/wishes")
-    public String get(@RequestParam(value = "wishlistId") String wishlistId, Model model){
+    public String get(@RequestParam String wishlistId, Model model){
         session.setAttribute("wishlistId",wishlistId);
         var w = dbManager.getAllWishes(wishlistId);
         model.addAttribute("wishes",w);
@@ -38,9 +31,9 @@ public class WishController {
     }
 
     @PostMapping("wish/create")
-    public String createPost(@ModelAttribute("wish") Wish w){
+    public String createPost(@ModelAttribute("wish") Wish wish){
         var id = session.getAttribute("wishlistId").toString();
-        if(dbManager.addWish(id,w))
+        if(dbManager.addWish(id,wish))
             return "redirect:wishes";
         return "redirect:err";
     }

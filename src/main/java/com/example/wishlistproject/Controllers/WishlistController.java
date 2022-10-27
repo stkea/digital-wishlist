@@ -12,10 +12,17 @@ import org.springframework.web.bind.annotation.*;
 public class WishlistController {
 
     @GetMapping("/wishlists")
-    public String get(Model model){
+    public String getAll(Model model){
         var wls = dbManager.getAllWishlist();
         model.addAttribute("wishlists",wls);
         return "wishlists";
+    }
+
+    @GetMapping("wishlist/wishlist")
+    public String get(@RequestParam String id, Model model){
+        var w = dbManager.getWishlistById(id);
+        model.addAttribute("wishlist",w);
+        return "wishlist";
     }
 
     @GetMapping("/wishlist/create")
@@ -42,7 +49,7 @@ public class WishlistController {
         return "removeConfirmation";
     }
 
-    @PostMapping("/wishlist/1remove")
+    @PostMapping("/wishlist/remove")
     public String removePost(@ModelAttribute("wishlist") Wishlist wl){
         if(dbManager.removeWishlistById(wl.getId()))
             return "redirect:/wishlists";
