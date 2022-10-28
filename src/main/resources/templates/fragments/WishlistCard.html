@@ -5,7 +5,11 @@
   </head>
   <body>
     <!-- Defining fragment -->
-    <div class="w-full h-full" th:fragment="wish(wishlist)">
+    <a
+      class="w-full h-full"
+      th:fragment="wish(wishlist)"
+      th:href="@{/wishlist/wishes(wishlistId=${wishlist.getId()})}"
+    >
       <div class="h-full grid p-4">
         <div class="flex flex-col space-y-2">
           <h1
@@ -36,17 +40,12 @@
         <div class="flex justify-end">
           <button
             th:onclick="javascript:toggleModal([[${wishlist.getId()}]])"
-            class="bg-red-500 rounded-md w-[100px] flex justify-center items-center font-bold text-white"
+            class="bg-red-500 hover:bg-red-700 transition-colors duration-500 rounded-md w-[100px] flex justify-center items-center font-bold text-white"
           >
             Delete
           </button>
-          <!-- <a
-            th:href="@{/wishlist/remove(id=${wishlist.id})}"
-            class="bg-red-500 rounded-md w-[100px] flex justify-center items-center font-bold text-white"
-            >Delete</a
-          > -->
         </div>
       </div>
-    </div>
+    </a>
   </body>
 </html>

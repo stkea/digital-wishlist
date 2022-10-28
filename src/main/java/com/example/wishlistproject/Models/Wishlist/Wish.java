@@ -80,4 +80,17 @@ public class Wish {
     public String getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Wish{" +
+                "id='" + id + '\'' +
+                ", productImageURL='" + productImageURL + '\'' +
+                ", wishlistId='" + wishlistId + '\'' +
+                ", reserved=" + reserved +
+                ", reservedTo='" + reservedTo + '\'' +
+                ", productTitle='" + productTitle + '\'' +
+                ", productPrice=" + productPrice +
+                '}';
+    }
 }

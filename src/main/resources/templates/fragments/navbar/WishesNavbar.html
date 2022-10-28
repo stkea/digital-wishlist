@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <!-- Defining fragment -->
+    <div
+      class="flex flex-row items-center justify-between"
+      th:fragment="WishesNavbar(title)"
+    >
+      <div class="flex flex-col">
+        <div class="text-sm text-gray-500">Ønsker tilknyttet</div>
+        <div class="text-2xl font-bold text-gray-700" th:text="${title}">
+          Title
+        </div>
+      </div>
+      <a
+        class="p-2 w-[200px] bg-indigo-500 hover:bg-indigo-700 rounded-md flex justify-center"
+        th:href="@{/wish/create}"
+      >
+        <h3 class="font-semibold text-white text-md">Opret nyt ønske</h3>
+      </a>
+    </div>
+  </body>
+</html>

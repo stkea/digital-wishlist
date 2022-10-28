@@ -1,6 +1,7 @@
 package com.example.wishlistproject.Controllers;
 
 import com.example.wishlistproject.Models.Wishlist.Wish;
+import com.example.wishlistproject.Models.Wishlist.Wishlist;
 import com.example.wishlistproject.Repository.Wishlist.IDbManager;
 import com.example.wishlistproject.Services.Factories.Wish.IWishFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,12 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class WishController {
-    @GetMapping("wish/wishes")
-    public String get(@RequestParam String wishlistId, Model model){
+    @GetMapping("wishlist/wishes")
+    public String get(@RequestParam(value = "wishlistId") String wishlistId, Model model){
         session.setAttribute("wishlistId",wishlistId);
         var w = dbManager.getAllWishes(wishlistId);
-        model.addAttribute("wishlistId",wishlistId);
+        Wishlist wl = dbManager.getWishlistById(wishlistId);
+        model.addAttribute("wishlist", wl);
         model.addAttribute("wishes",w);
         return "wishes";
     }
@@ -28,12 +30,13 @@ public class WishController {
         var id = session.getAttribute("wishlistId").toString();
         var w = factory.empty(id);
         model.addAttribute("wish",w);
-        return "redirect:createWishForm";
+        return "createWishForm";
     }
 
     @PostMapping("wish/create")
     public String createPost(@ModelAttribute("wish") Wish wish){
         var id = session.getAttribute("wishlistId").toString();
+        System.out.println(wish);
         if(dbManager.addWish(id,wish))
             return "redirect:wishes";
         return "redirect:err";

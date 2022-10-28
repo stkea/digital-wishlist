@@ -3,17 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>Overview</title>
-    <link
-      rel="stylesheet"
-      href="../static/css/wishlist.css"
-      th:href="@{/css/wishlist.css}"
-    />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="h-screen w-screen bg-[#f2f5f9]">
     <div class="p-8 max-w-6xl mx-auto w-full h-auto">
       <div class="flex flex-col space-y-4">
-        <div th:replace="fragments/WishlistsDisplayNavbar.html" />
+        <div th:replace="fragments/navbar/WishlistsDisplayNavbar.html" />
         <div
           class="grid gap-10 md:grid-cols-2 lg:grid-cols-3 place-items-center h-full w-full"
         >
@@ -35,6 +30,7 @@
     </div>
     <script>
       function toggleModal(id) {
+        event.preventDefault();
         const ele = document.getElementById("modal-" + id);
         if (ele.classList.contains("hidden")) {
           ele.classList.remove("hidden");
