@@ -3,7 +3,8 @@ package com.example.wishlistproject.Services.Factories.Sharing;
 import com.example.wishlistproject.Models.Sharing.ShareToken;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
 @Service
 public class LocalhostLetterToken implements IShareTokenFactory {
@@ -14,6 +15,11 @@ public class LocalhostLetterToken implements IShareTokenFactory {
         var tokenLink = baseUrl + tokenValue;
         var token = new ShareToken(tokenId,id,tokenLink,tokenValue);
         return token;
+    }
+
+    @Override
+    public boolean validateKey(String key) {
+        return Pattern.matches("^[A-Z]{0,9}$",key);
     }
 
     private int seed(){

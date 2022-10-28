@@ -3,6 +3,7 @@ package com.example.wishlistproject.Services.Factories.Sharing;
 import com.example.wishlistproject.Models.Sharing.ShareToken;
 
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class LocalhostUriToken implements IShareTokenFactory {
     @Override
@@ -11,5 +12,11 @@ public class LocalhostUriToken implements IShareTokenFactory {
         var tokenId = UUID.randomUUID().toString();
         var token = new ShareToken(tokenId, value, id, "");
         return token;
+    }
+
+    @Override
+    public boolean validateKey(String key) {
+        return Pattern.matches("^[\\d,a-f]{8}-[\\d,a-f]{4}-[\\d,a-f]{4}-[\\d,a-f]{4}-[\\d,a-f]{12}$",
+                key);
     }
 }

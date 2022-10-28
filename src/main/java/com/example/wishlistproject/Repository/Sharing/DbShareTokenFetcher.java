@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 @Service
 public class DbShareTokenFetcher implements IDbShareTokenFetcher {
@@ -15,6 +16,8 @@ public class DbShareTokenFetcher implements IDbShareTokenFetcher {
 
     @Override
     public ShareToken get(String tokenKey) {
+        if( !Pattern.matches("^[A-Z]{0,9}$",tokenKey))
+            return null;
         var result = sqlContext.runQuery(query(tokenKey));
         ShareToken token;
         try {

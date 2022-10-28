@@ -7,15 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-
-    public HomeController(IDbManager manager) {
-        this.manager = manager;
-    }
-
-    @GetMapping("/")
+    @GetMapping()
     public String home(){
         return "index";
     }
 
-    private final IDbManager manager;
+    @GetMapping("about")
+    public String about(){
+        return "about";
+    }
 }

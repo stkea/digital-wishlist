@@ -23,10 +23,12 @@ public class ShareController {
 
     @GetMapping("share/shareToken/{tokenKey}")
     public String handleToken(@PathVariable String tokenKey){
-        var token = shareTokenGetter.get(tokenKey);
+        if(!tokenFactory.validateKey(tokenKey))
+            return "redirect:invalid_share_key";
+        var token = tokenFetcher.get(tokenKey);
         if(token != null)
             return "redirect:/wish/wishes?wishlistId=" + token.getWishlistId();
-        return "redirect: invalid_share_key";
+        return "redirect:key_not_found";
     }
 
     @Autowired
@@ -36,5 +38,5 @@ public class ShareController {
     private ISharingTokenPersistence tokenPersistence;
 
     @Autowired
-    private IDbShareTokenFetcher shareTokenGetter;
+    private IDbShareTokenFetcher tokenFetcher;
 }

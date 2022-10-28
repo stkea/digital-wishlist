@@ -3,6 +3,7 @@ package com.example.wishlistproject.Controllers;
 import com.example.wishlistproject.Models.Wishlist.Wishlist;
 import com.example.wishlistproject.Repository.Wishlist.IDbManager;
 import com.example.wishlistproject.Services.Factories.Wishlist.IWishlistFactory;
+import com.example.wishlistproject.Services.Security.SqlProtection.UUIDValidator.IStringValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,14 +43,16 @@ public class WishlistController {
 
 
     @PostMapping("/wishlist/remove")
-    public String removePost(@RequestParam(value = "id") String id){
-        if(dbManager.removeWishlistById(id))
+    public String removePost(@RequestParam String id){
+        if(idValidator.validate(id) && dbManager.removeWishlistById(id))
             return "redirect:/wishlists";
         return "err";
     }
 
     @GetMapping("/update")
-    public String updateGet(@RequestParam("id") String id, Model model){
+    public String updateGet(@RequestParam String id, Model model){
+        if(!idValidator.validate(id))
+            return "redirect:bad_input";
         var wl = dbManager.getWishlistById(id);
         model.addAttribute("wishlist");
         return "updateForm";
@@ -66,4 +69,7 @@ public class WishlistController {
     private IDbManager dbManager;
     @Autowired
     private IWishlistFactory factory;
+
+    @Autowired
+    private IStringValidator idValidator;
 }

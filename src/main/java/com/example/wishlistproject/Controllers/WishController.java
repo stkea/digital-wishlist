@@ -3,6 +3,7 @@ package com.example.wishlistproject.Controllers;
 import com.example.wishlistproject.Models.Wishlist.Wish;
 import com.example.wishlistproject.Repository.Wishlist.IDbManager;
 import com.example.wishlistproject.Services.Factories.Wish.IWishFactory;
+import com.example.wishlistproject.Services.Security.SqlProtection.UUIDValidator.IStringValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +17,10 @@ import javax.servlet.http.HttpSession;
 public class WishController {
     @GetMapping("wish/wishes")
     public String get(@RequestParam String wishlistId, Model model){
-        System.out.println(wishlistId);
+        if(!idValidator.validate(wishlistId))
+            return "redirect:bad_input";
         session.setAttribute("wishlistId",wishlistId);
-        var w = dbManager.getAllWishes(wishlistId);
-        model.addAttribute("wishlistId",wishlistId);
-        model.addAttribute("wishes",w);
+        model.addAttribute("wishes",dbManager.getAllWishes(wishlistId));
         return "wishes";
     }
 
@@ -41,7 +41,9 @@ public class WishController {
     }
 
     @GetMapping("wish/removeWish")
-    public String removeGet(@RequestParam(value = "id") String id, Model model){
+    public String removeGet(@RequestParam String id, Model model){
+        if(!idValidator.validate(id))
+            return "redirect:bad_input";
         var w = dbManager.getWishById(id);
         model.addAttribute("wish",w);
         return "redirect:removeWishConfirmation";
@@ -81,4 +83,7 @@ public class WishController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private IStringValidator idValidator;
 }
