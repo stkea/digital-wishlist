@@ -38,3 +38,7 @@ build/
 ### Sensitive scripts
 
 dbcredentials.sh
+
+### Vagrant
+
+.vagrant/

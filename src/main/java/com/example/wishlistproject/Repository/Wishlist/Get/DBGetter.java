@@ -20,18 +20,19 @@ public class DBGetter implements IGetter{
     }
     @Override
     public Wishlist getWishlistById(String id) {
-        Wishlist wishlist;
-        try {
-            var data = sqlContext.runQuery(String.format("""
+        ResultSet data = sqlContext.runQuery(String.format("""
                 SELECT * FROM Wishlist w WHERE w.Id = '%s';
                 """, id));
+        try {
             if(!data.next())
                 return null;
-            wishlist = wishlistFactory.fromResultSet(data);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
+        Wishlist wishlist = wishlistFactory.fromResultSet(data);
+        if(wishlist == null)
+            return null;
         // Retrieve wishes for the wishlist and append them to the wishlist
         List<Wish> wishes = getWishesByWishlistID(id);
         wishlist.setWishes(wishes);
@@ -41,10 +42,10 @@ public class DBGetter implements IGetter{
     @Override
     public List<Wishlist> getAllWishlist() {
         List<Wishlist> wishlists = new ArrayList<>();
-        try {
-            ResultSet data = sqlContext.runQuery("""
+        ResultSet data = sqlContext.runQuery("""
                 SELECT * FROM Wishlist;
                 """);
+        try {
             while (data.next()) {
                 Wishlist wishlist = wishlistFactory.fromResultSet(data);
                 // Retrieve wishes for the current wishlist and append them to the wishlist
@@ -54,33 +55,35 @@ public class DBGetter implements IGetter{
             }
         } catch (SQLException e) {
             System.out.println("Failed trying to retrieve all wishlists");
-            return new ArrayList<>();
         }
         return wishlists;
     }
 
     @Override
     public Wish getWishById(String id) {
-        try {
-            ResultSet data = sqlContext.runQuery(String.format("""
+        ResultSet data = sqlContext.runQuery(String.format("""
                 SELECT * FROM Wish w
                 WHERE w.Id = '%s';
                 """, id));
-            return wishFactory.fromResultSet(data);
+        try {
+            if(!data.next())
+                return null;
         } catch (SQLException e){
             System.out.println(e.getMessage());
             return null;
         }
+        Wish wish = wishFactory.fromResultSet(data);
+        return wish;
     }
 
     @Override
     public List<Wish> getWishesByWishlistID(String id) {
         List<Wish> wishes = new ArrayList<>();
-        try {
-            ResultSet data = sqlContext.runQuery(String.format("""
+        ResultSet data = sqlContext.runQuery(String.format("""
                 SELECT * FROM Wish
                 WHERE WishlistId = '%s';
                 """, id));
+        try {
             while (data.next()) {
                 Wish wish = wishFactory.fromResultSet(data);
                 wishes.add(wish);

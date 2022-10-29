@@ -14,12 +14,14 @@ public class DbShareTokenFetcher implements IDbShareTokenFetcher {
 
     @Override
     public ShareToken get(String tokenKey) {
+        var result = sqlContext.runQuery(query(tokenKey));
+        ShareToken token;
         try {
-            var result = sqlContext.runQuery(query(tokenKey));
-            return fromResultSet(result);
+            token = fromResultSet(result);
         } catch (SQLException e) {
             return null;
         }
+        return token;
     }
 
     private boolean validate(String key){

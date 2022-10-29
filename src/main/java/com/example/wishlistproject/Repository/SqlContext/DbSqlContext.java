@@ -8,20 +8,21 @@ import java.sql.SQLException;
 @Service
 public class DbSqlContext implements IDbSqlContext {
     @Override
-    public ResultSet runQuery(String sql) throws SQLException {
+    public ResultSet runQuery(String sql){
         var dbConnector = DbConnection.getInstance(url,username,password);
         var con = dbConnector.get();
-        if(con == null)
-            throw  new SQLException();
-        return con.prepareStatement(sql).executeQuery();
+        try {
+            return con.prepareStatement(sql).executeQuery();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @Override
     public boolean runStatement(String sql){
         var dbConnector = DbConnection.getInstance(url,username,password);
         var con = dbConnector.get();
-        if(con == null)
-            return false;
         try {
             con.createStatement().execute(sql);
         } catch (SQLException e) {
