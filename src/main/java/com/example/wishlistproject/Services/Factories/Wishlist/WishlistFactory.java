@@ -17,16 +17,11 @@ public class WishlistFactory implements IWishlistFactory{
     }
 
     @Override
-    public Wishlist fromResultSet(ResultSet result) {
-        try {
-            String id = result.getString("Id");
-            String Title = result.getString("Title");
-            String Creator = result.getString("Creator");
-            String exp = result.getString("Expiration");
-            return new Wishlist(id, Title, Creator, exp);
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
+    public Wishlist fromResultSet(ResultSet result) throws SQLException {
+        String id = result.getString("Id");
+        String Title = result.getString("Title");
+        String Creator = result.getString("Creator");
+        String exp = result.getString("Expiration");
+        return new Wishlist(id, Title, Creator, exp);
     }
 }

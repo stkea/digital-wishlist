@@ -34,3 +34,7 @@ build/
 ### VS Code ###
 .vscode/
 .DS_Store
+
+### Sensitive scripts
+
+dbcredentials.sh
