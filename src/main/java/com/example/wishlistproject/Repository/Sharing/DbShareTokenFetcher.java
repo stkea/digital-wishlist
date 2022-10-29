@@ -3,10 +3,8 @@ package com.example.wishlistproject.Repository.Sharing;
 import com.example.wishlistproject.Models.Sharing.ShareToken;
 import com.example.wishlistproject.Repository.SqlContext.IDbSqlContext;
 import org.springframework.stereotype.Service;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.regex.Pattern;
 
 @Service
 public class DbShareTokenFetcher implements IDbShareTokenFetcher {
@@ -16,8 +14,6 @@ public class DbShareTokenFetcher implements IDbShareTokenFetcher {
 
     @Override
     public ShareToken get(String tokenKey) {
-        if( !Pattern.matches("^[A-Z]{0,9}$",tokenKey))
-            return null;
         var result = sqlContext.runQuery(query(tokenKey));
         ShareToken token;
         try {
@@ -35,7 +31,7 @@ public class DbShareTokenFetcher implements IDbShareTokenFetcher {
     private String query(String key){
         var query = String.format("""
                     SELECT * FROM ShareToken
-                    WHERE TokenKey = %s
+                    WHERE TokenKey = '%s'
                     LIMIT 1;
                 """,key);
         return query;

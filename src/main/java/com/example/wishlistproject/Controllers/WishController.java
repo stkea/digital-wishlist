@@ -18,7 +18,7 @@ public class WishController {
     @GetMapping("wish/wishes")
     public String get(@RequestParam String wishlistId, Model model){
         if(!idValidator.validate(wishlistId))
-            return "redirect:bad_input";
+            return "redirect:/bad_input";
         session.setAttribute("wishlistId",wishlistId);
         model.addAttribute("wishes",dbManager.getAllWishes(wishlistId));
         return "wishes";
@@ -37,7 +37,7 @@ public class WishController {
         var id = session.getAttribute("wishlistId").toString();
         if(dbManager.addWish(id,wish))
             return "redirect:wishes";
-        return "redirect:err";
+        return "redirect:/err";
     }
 
     @GetMapping("wish/removeWish")
