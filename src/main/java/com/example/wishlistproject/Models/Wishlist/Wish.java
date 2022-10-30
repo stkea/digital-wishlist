@@ -19,6 +19,18 @@ public class Wish {
 
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setReserved(int reserved) {
+        this.reserved = reserved;
+    }
+
+    public void setReservedTo(String reservedTo) {
+        this.reservedTo = reservedTo;
+    }
+
     private String id;
     private String productImageURL;
     private String wishlistId;
