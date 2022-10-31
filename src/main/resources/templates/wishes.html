@@ -12,7 +12,7 @@
           >Tilbage</a
         >
         <div
-          th:replace="fragments/navbar/WishesNavbar.html :: WishesNavbar(${wishlist.getTitle()})"
+          th:replace="fragments/navbar/WishesNavbar.html :: WishesNavbar(${wishlist.getTitle()}, ${wishlist.getId()})"
         />
         <div
           class="grid gap-10 md:grid-cols-2 lg:grid-cols-3 place-items-center h-full w-full"
