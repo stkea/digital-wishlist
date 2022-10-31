@@ -7,10 +7,8 @@ import com.example.wishlistproject.Services.Factories.Wish.IWishFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -36,23 +34,17 @@ public class WishController {
     @PostMapping("wish/create")
     public String createPost(@ModelAttribute("wish") Wish wish){
         var id = session.getAttribute("wishlistId").toString();
-        System.out.println(wish);
         if(dbManager.addWish(id,wish))
-            return "redirect:wishes";
+            return "redirect:/wishlist/wishes?wishlistId=" + id;
         return "redirect:err";
     }
 
-    @GetMapping("wish/removeWish")
-    public String removeGet(@RequestParam(value = "id") String id, Model model){
-        var w = dbManager.getWishById(id);
-        model.addAttribute("wish",w);
-        return "redirect:removeWishConfirmation";
-    }
 
     @PostMapping("wish/removeWish")
     public String removeGet(@ModelAttribute("wish") Wish wish){
+        String wishlistId = session.getAttribute("wishlistId").toString();
         if(dbManager.removeWish(wish.getId()))
-            return "redirect:wish/wishes";
+            return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
         return "redirect:err";
     }
 
@@ -60,20 +52,23 @@ public class WishController {
     public String updateGet(@RequestParam(value = "id") String id, Model model){
         var w = dbManager.getWishById(id);
         model.addAttribute("wish",w);
-        return "redirect:updateWishForm";
+        return "updateWishForm";
     }
 
     @PostMapping("wish/update")
     public String updateGet(@ModelAttribute("wish") Wish wish){
         if(dbManager.updateWish(wish))
-            return "wish/wishes";
+            return "redirect:/wishlist/wishes?wishlistId=" + wish.getWishlistId();
         return "redirect:err";
     }
 
-    public String reserve(@RequestParam String name, String id){
-        if(dbManager.reserveWish(id,name))
-            return "redirect:wish/wishes";
-        return "redirect;err";
+    @PostMapping("wish/reserve")
+    public String reserve(@RequestParam(value = "wishId") String wishId) {
+       if(dbManager.handleReserve(wishId)) {
+           String id = session.getAttribute("wishlistId").toString();
+           return "redirect:/wishlist/wishes?wishlistId=" + id;
+       }
+        return "redirect:err";
     }
 
     @Autowired

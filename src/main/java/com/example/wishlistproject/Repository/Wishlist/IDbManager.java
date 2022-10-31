@@ -16,5 +16,5 @@ public interface IDbManager {
     List<Wishlist> getAllWishlist();
     boolean removeWish(String id);
     boolean updateWish(Wish wish);
-    boolean reserveWish(String wishId, String name);
+    boolean handleReserve(String wishId);
 }

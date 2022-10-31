@@ -70,9 +70,10 @@ public class DbManager implements IDbManager {
         return updater.updateWish(wish);
     }
 
+
     @Override
-    public boolean reserveWish(String wishId, String name) {
-        return false;
+    public boolean handleReserve(String wishId) {
+        return reservation.handleReserve(wishId);
     }
 
     private final IAdder adder;

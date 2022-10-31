@@ -7,55 +7,62 @@
   </head>
   <body class="h-screen w-screen bg-[#f2f5f9]">
     <div class="max-w-6xl mx-auto w-full h-screen">
-      <div class="h-screen w-full flex justify-center flex-col">
-        <h1 class="text-5xl font-bold text-gray-700 p-8">Create wishlist</h1>
-        <form
-          action="#"
-          th:action="@{/wishlist/create}"
-          method="post"
-          th:object="${wishlist}"
-          class="space-y-8 pl-8 pr-8"
-        >
-          <input type="hidden" th:field="*{id}" />
-          <div class="flex flex-col space-y-4">
-            <div class="flex flex-col space-y-2">
-              <label for="title" class="text-sm text-gray-600">Titel</label>
-              <input
-                type="text"
-                name="title"
-                th:field="*{title}"
-                class="p-2 border border-gray-400 rounded-sm"
-              />
+      <div class="h-screen w-full flex flex-col">
+        <div class="flex flex-col space-y-2 justify-start p-8">
+          <a th:href="@{/wishlists}" class="text-blue-500 font-bold text-md"
+            >Tilbage</a
+          >
+          <h1 class="text-5xl font-bold text-gray-700">Opret ønskeliste</h1>
+        </div>
+        <div class="flex flex-col h-screen w-full justify-center">
+          <form
+            action="#"
+            th:action="@{/wishlist/create}"
+            method="post"
+            th:object="${wishlist}"
+            class="space-y-8 pl-8 pr-8"
+          >
+            <input type="hidden" th:field="*{id}" />
+            <div class="flex flex-col space-y-4">
+              <div class="flex flex-col space-y-2">
+                <label for="title" class="text-sm text-gray-600">Titel</label>
+                <input
+                  type="text"
+                  name="title"
+                  th:field="*{title}"
+                  class="p-2 border border-gray-400 rounded-sm"
+                />
+              </div>
+              <div class="flex flex-col space-y-2">
+                <label for="creatorName" class="text-sm text-gray-600"
+                  >Navn på opretter</label
+                >
+                <input
+                  type="text"
+                  name="creatorName"
+                  th:field="*{creatorName}"
+                  class="p-2 border border-gray-400 rounded-sm"
+                />
+              </div>
+              <div class="flex flex-col space-y-2">
+                <label for="expiration" class="text-sm text-gray-600"
+                  >Udløbsdato</label
+                >
+                <input
+                  type="date"
+                  name="expiration"
+                  th:field="*{expiration}"
+                  class="p-2 border border-gray-400 rounded-sm"
+                />
+              </div>
             </div>
-            <div class="flex flex-col space-y-2">
-              <label for="creatorName" class="text-sm text-gray-600"
-                >Navn på opretter</label
-              >
-              <input
-                type="text"
-                name="creatorName"
-                th:field="*{creatorName}"
-                class="p-2 border border-gray-400 rounded-sm"
-              />
-            </div>
-            <div class="flex flex-col space-y-2">
-              <label for="expiration" class="text-sm text-gray-600"
-                >Udløbsdato</label
-              >
-              <input
-                type="date"
-                name="expiration"
-                th:field="*{expiration}"
-                class="p-2 border border-gray-400 rounded-sm"
-              />
-            </div>
-          </div>
-          <input
-            type="submit"
-            value="Opret"
-            class="flex justify-center p-2 w-full md:w-[100px] bg-blue-500 text-white font-bold text-lg rounded-md"
-          />
-        </form>
+            <input
+              type="submit"
+              value="Opret"
+              class="flex justify-center p-2 w-full md:w-[100px] bg-blue-500 text-white font-bold text-lg rounded-md"
+            />
+          </form>
+        </div>
       </div>
     </div>
   </body>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <!-- Defining fragment -->
+    <form
+      class="w-full h-full"
+      th:fragment="wish(wish)"
+      action="#"
+      th:action="@{/wish/reserve(wishId=${wish.getId()})}"
+      method="post"
+    >
+      <div class="h-full grid p-4 space-y-4 flex flex-col">
+        <h1
+          th:text="${wish.getProductTitle()}"
+          class="flex justify-start text-2xl font-bold text-gray-700 truncate"
+        />
+        <div class="flex flex-col space-y-2">
+          <div
+            class="flex flex-row items-center space-x-2 bg-gray-200 rounded-md p-2"
+          >
+            <div
+              th:text="${wish.getProductPrice()}"
+              class="font-bold text-gray-700"
+            />
+            <div class="text-md text-gray-600">Kr</div>
+          </div>
+          <div class="p-2 bg-gray-200 rounded-md">
+            <a
+              th:href="${wish.getProductImageURL()}"
+              th:text="${wish.getProductImageURL()}"
+              class="text-blue-400 underline"
+            ></a>
+          </div>
+        </div>
+        <!-- Buttons -->
+        <div class="flex flex-row w-full space-x-2">
+          <!-- Reserve -->
+          <button
+            type="submit"
+            th:classappend="${wish.getReserved() == 0} ? 'hover:bg-indigo-700 transition-colors duration-200' : 'bg-[#211f4f] hover:bg-[#211a4f]'"
+            class="flex justify-center items-center bg-indigo-600 cursor-pointer text-md font-bold text-white p-2 rounded-md w-1/2"
+            th:text="${wish.getReserved() > 0} ? Reserveret : Reserver"
+          >
+            Reserver
+          </button>
+          <a
+            class="flex justify-center items-center bg-yellow-600 hover:bg-yellow-700 transition-colors duration-200 cursor-pointer text-md font-bold text-white p-2 rounded-md w-1/2"
+            th:href="@{/wish/update(id=${wish.getId()})}"
+            >Rediger</a
+          >
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

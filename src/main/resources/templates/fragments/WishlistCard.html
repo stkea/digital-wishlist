@@ -7,7 +7,7 @@
     <!-- Defining fragment -->
     <a
       class="w-full h-full"
-      th:fragment="wish(wishlist)"
+      th:fragment="wishlist(wishlist)"
       th:href="@{/wishlist/wishes(wishlistId=${wishlist.getId()})}"
     >
       <div class="h-full grid p-4">

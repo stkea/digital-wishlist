@@ -8,6 +8,9 @@
   <body class="h-screen w-screen bg-[#f2f5f9]">
     <div class="p-8 max-w-6xl mx-auto w-full h-auto">
       <div class="flex flex-col space-y-4">
+        <a th:href="@{/wishlists}" class="text-blue-500 font-bold text-md"
+          >Tilbage</a
+        >
         <div
           th:replace="fragments/navbar/WishesNavbar.html :: WishesNavbar(${wishlist.getTitle()})"
         />
@@ -15,9 +18,11 @@
           class="grid gap-10 md:grid-cols-2 lg:grid-cols-3 place-items-center h-full w-full"
         >
           <div
-            th:each="wl : ${wishes}"
-            class="w-full h-[150px] rounded-xl bg-white shadow-lg"
-          ></div>
+            th:each="w : ${wishes}"
+            class="w-full h-[250px] rounded-md bg-white shadow-lg"
+          >
+            <div th:replace="fragments/WishCard.html :: wish(${w})" />
+          </div>
         </div>
       </div>
     </div>

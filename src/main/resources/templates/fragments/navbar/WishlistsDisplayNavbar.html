@@ -5,20 +5,25 @@
   </head>
   <body>
     <!-- Defining fragment -->
-    <div
-      class="flex flex-col md:flex-row space-y-4 md:space-y-0 justify-between items-center"
-      th:fragment="WishlistDisplayNavbar"
-    >
-      <a
-        th:href="@{/wishlist/create}"
-        class="bg-indigo-500 hover:bg-indigo-700 w-full cursor-pointer p-4 md:p-2 md:w-[150px] rounded-md flex justify-center font-bold text-white"
-        >Opret ny liste</a
+    <div class="flex flex-col space-y-6" th:fragment="WishlistDisplayNavbar">
+      <div class="flex flex-col">
+        <div class="text-sm text-gray-500">Alle aktuelle</div>
+        <div class="text-2xl font-bold text-gray-700">Ønskelister</div>
+      </div>
+      <div
+        class="flex flex-col md:flex-row space-y-4 md:space-y-0 justify-between items-center"
       >
-      <input
-        type="text"
-        placeholder="Søg..."
-        class="w-full md:w-[300px] p-2 rounded-md border-2 border-gray-300 bg-white"
-      />
+        <a
+          th:href="@{/wishlist/create}"
+          class="bg-indigo-500 hover:bg-indigo-700 w-full cursor-pointer p-4 md:p-2 md:w-[150px] rounded-md flex justify-center font-bold text-white"
+          >Opret ny liste</a
+        >
+        <input
+          type="text"
+          placeholder="Søg..."
+          class="w-full md:w-[300px] p-2 rounded-md border-2 border-gray-300 bg-white"
+        />
+      </div>
     </div>
   </body>
 </html>
