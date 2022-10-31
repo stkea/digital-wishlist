@@ -1,88 +1,82 @@
 package com.example.wishlistproject.Controllers;
 
 import com.example.wishlistproject.Models.Wishlist.Wish;
+import com.example.wishlistproject.Models.Wishlist.Wishlist;
 import com.example.wishlistproject.Repository.Wishlist.IDbManager;
 import com.example.wishlistproject.Services.Factories.Wish.IWishFactory;
 import com.example.wishlistproject.Services.Security.SqlProtection.UUIDValidator.IStringValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class WishController {
-    @GetMapping("wish/wishes")
-    public String get(@RequestParam String wishlistId, Model model){
+    @GetMapping("wishlist/wishes")
+    public String get(@RequestParam(value = "wishlistId") String wishlistId, Model model){
         if(!idValidator.validate(wishlistId))
             return "redirect:/bad_input";
-        session.setAttribute("wishlistId",wishlistId);
-        model.addAttribute("wishes",dbManager.getAllWishes(wishlistId));
+        var w = dbManager.getAllWishes(wishlistId);
+        Wishlist wl = dbManager.getWishlistById(wishlistId);
+        model.addAttribute("wishlist", wl);
+        model.addAttribute("wishes",w);
         return "wishes";
     }
 
     @GetMapping("wish/create")
     public String create(Model model){
-        var id = session.getAttribute("wishlistId").toString();
+        var id = model.getAttribute("wishlistId").toString();
         var w = factory.empty(id);
         model.addAttribute("wish",w);
-        return "redirect:createWishForm";
+        return "createWishForm";
     }
 
     @PostMapping("wish/create")
     public String createPost(@ModelAttribute("wish") Wish wish){
-        var id = session.getAttribute("wishlistId").toString();
-        if(dbManager.addWish(id,wish))
-            return "redirect:wishes";
-        return "redirect:/err";
-    }
-
-    @GetMapping("wish/removeWish")
-    public String removeGet(@RequestParam String id, Model model){
-        if(!idValidator.validate(id))
-            return "redirect:bad_input";
-        var w = dbManager.getWishById(id);
-        model.addAttribute("wish",w);
-        return "redirect:removeWishConfirmation";
+        if(dbManager.addWish(wish.getWishlistId(),wish))
+            return "redirect:/wishlist/wishes?wishlistId=" + wish.getWishlistId();
+        return "redirect:err";
     }
 
     @PostMapping("wish/removeWish")
     public String removeGet(@ModelAttribute("wish") Wish wish){
+        String wishlistId = wish.getWishlistId();
         if(dbManager.removeWish(wish.getId()))
-            return "redirect:wish/wishes";
+            return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
         return "redirect:err";
     }
 
     @GetMapping("wish/update")
-    public String updateGet(@RequestParam(value = "id") String id, Model model){
+    public String updateGet(@RequestParam String id, String wishlistId , Model model){
         var w = dbManager.getWishById(id);
+        if(w == null)
+            return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
         model.addAttribute("wish",w);
-        return "redirect:updateWishForm";
+        return "updateWishForm";
     }
 
     @PostMapping("wish/update")
     public String updateGet(@ModelAttribute("wish") Wish wish){
         if(dbManager.updateWish(wish))
-            return "wish/wishes";
+            return "redirect:/wishlist/wishes?wishlistId=" + wish.getWishlistId();
         return "redirect:err";
     }
 
-    public String reserve(@RequestParam String name, String id){
-        if(dbManager.reserveWish(id,name))
-            return "redirect:wish/wishes";
-        return "redirect;err";
+    @PostMapping("wish/reserve")
+    public String reserve(@RequestParam String wishId, String wishlistId) {
+       var f = "";
+       if(dbManager.handleReserve(wishId)) {
+           return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
+       }
+        return "redirect:err";
     }
 
     @Autowired
     private IDbManager dbManager;
     @Autowired
     private IWishFactory factory;
-
-    @Autowired
-    private HttpSession session;
 
     @Autowired
     private IStringValidator idValidator;

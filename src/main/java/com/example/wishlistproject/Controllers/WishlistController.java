@@ -37,7 +37,7 @@ public class WishlistController {
     public String createPost(@ModelAttribute("wishlist") Wishlist wl){
         var result = dbManager.addWishlist(wl);
         if(result)
-            return "redirect:/wishlists";
+            return String.format("redirect:/wishlist/wishes?wishlistId=%s", wl.getId());
         return "redirect:err";
     }
 

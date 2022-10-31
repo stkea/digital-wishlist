@@ -1,12 +1,11 @@
 package com.example.wishlistproject.Models.Wishlist;
 
 public class Wish {
-    public Wish(String id, String url, String wishlistId, int reserved, String reservedTo, String productTitle, double productPrice) {
+    public Wish(String id, String url, String wishlistId, int reserved, String productTitle, double productPrice) {
         this.id = id;
         this.productImageURL = url;
         this.wishlistId = wishlistId;
         this.reserved = reserved;
-        this.reservedTo = reservedTo;
         this.productTitle = productTitle;
         this.productPrice = productPrice;
     }
@@ -27,15 +26,10 @@ public class Wish {
         this.reserved = reserved;
     }
 
-    public void setReservedTo(String reservedTo) {
-        this.reservedTo = reservedTo;
-    }
-
     private String id;
     private String productImageURL;
     private String wishlistId;
     private int reserved;
-    private String reservedTo;
     private String productTitle;
     private double productPrice;
 
@@ -51,19 +45,14 @@ public class Wish {
         return reserved;
     }
 
-    public void reserve(String name){
+    public void reserve(){
         reserved = 1;
-        reservedTo = name;
     }
 
     public void unReserve(){
         reserved = 0;
-        reservedTo = "";
     }
 
-    public String getReservedTo() {
-        return reservedTo;
-    }
 
     public String getProductTitle() {
         return productTitle;
@@ -92,4 +81,5 @@ public class Wish {
     public String getId() {
         return id;
     }
+
 }

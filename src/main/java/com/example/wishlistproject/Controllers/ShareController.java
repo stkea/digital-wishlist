@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ShareController {
     @GetMapping("share/sharewishlist")
-    public String shareWishlist(@RequestParam String id, Model model){
+    public String shareWishlist(@RequestParam(value = "id") String id, Model model){
         var token = tokenFactory.token(id);
         if(tokenPersistence.persist(token))
             return "redirect:err";

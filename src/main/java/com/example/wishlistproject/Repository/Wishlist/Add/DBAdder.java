@@ -5,6 +5,8 @@ import com.example.wishlistproject.Models.Wishlist.Wishlist;
 import com.example.wishlistproject.Repository.SqlContext.IDbSqlContext;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
+
 @Service
 public class DBAdder implements IAdder{
 
@@ -31,10 +33,11 @@ public class DBAdder implements IAdder{
     }
 
     private Boolean runInsertWishQuery(Wish w, String wishlistId) {
+        Locale.setDefault(Locale.US);
         return sqlContext.runStatement(String.format("""
-                INSERT INTO Wish(Id,Url,ProductTitle,ProductPrice,WishlistId)
-                VALUES('%s', '%s', '%s', %f, '%s');
-                """, w.getId(), w.getProductImageURL(), w.getProductTitle(), w.getProductPrice(), wishlistId));
+                INSERT INTO Wish(Id,Url,WishlistId,Reserved,ProductTitle,ProductPrice)
+                VALUES('%s','%s','%s',%d,'%s',%.2f);
+                """, w.getId(), w.getProductImageURL(), wishlistId, w.getReserved(), w.getProductTitle(), w.getProductPrice()));
     }
     private Boolean runInsertWishlistQuery(Wishlist wishlist) {
         return sqlContext.runStatement(String.format("""

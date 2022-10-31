@@ -9,49 +9,56 @@
     <div class="max-w-6xl mx-auto w-full h-screen">
       <div class="h-screen w-full flex flex-col">
         <div class="flex flex-col space-y-2 justify-start p-8">
-          <a th:href="@{/wishlists}" class="text-blue-500 font-bold text-md"
+          <a
+            th:href="@{/wishlist/wishes(wishlistId=${wish.wishlistId})}"
+            class="text-blue-500 font-bold text-md"
             >Tilbage</a
           >
-          <h1 class="text-5xl font-bold text-gray-700">Opret ønskeliste</h1>
+          <h1 class="text-5xl font-bold text-gray-700">Opret ønske</h1>
         </div>
-        <div class="flex flex-col h-screen w-full justify-center">
+        <div class="flex flex-col justify-center h-screen w-full">
           <form
             action="#"
-            th:action="@{/wishlist/create}"
+            th:action="@{/wish/create}"
             method="post"
-            th:object="${wishlist}"
+            th:object="${wish}"
             class="space-y-8 pl-8 pr-8"
           >
             <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{wishlistId}" />
             <div class="flex flex-col space-y-4">
               <div class="flex flex-col space-y-2">
-                <label for="title" class="text-sm text-gray-600">Titel</label>
+                <label for="title" class="text-sm text-gray-600"
+                  >Produkt-Title</label
+                >
                 <input
                   type="text"
-                  name="title"
-                  th:field="*{title}"
+                  name="productTitle"
+                  th:field="*{productTitle}"
                   class="p-2 border border-gray-400 rounded-sm"
                 />
               </div>
               <div class="flex flex-col space-y-2">
                 <label for="creatorName" class="text-sm text-gray-600"
-                  >Navn på opretter</label
+                  >Produkt-Pris</label
                 >
                 <input
-                  type="text"
-                  name="creatorName"
-                  th:field="*{creatorName}"
+                  type="number"
+                  step="any"
+                  lang="en"
+                  name="productPrice"
+                  th:field="*{productPrice}"
                   class="p-2 border border-gray-400 rounded-sm"
                 />
               </div>
               <div class="flex flex-col space-y-2">
                 <label for="expiration" class="text-sm text-gray-600"
-                  >Udløbsdato</label
+                  >Produkt-Link</label
                 >
                 <input
-                  type="date"
-                  name="expiration"
-                  th:field="*{expiration}"
+                  type="text"
+                  name="productImageURL"
+                  th:field="*{productImageURL}"
                   class="p-2 border border-gray-400 rounded-sm"
                 />
               </div>

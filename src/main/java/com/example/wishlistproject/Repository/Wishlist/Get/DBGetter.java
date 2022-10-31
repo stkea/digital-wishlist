@@ -66,6 +66,8 @@ public class DBGetter implements IGetter{
                 SELECT * FROM Wish w
                 WHERE w.Id = '%s';
                 """, id));
+            if(!data.next())
+                return null;
             return wishFactory.fromResultSet(data);
         } catch (SQLException e){
             System.out.println(e.getMessage());

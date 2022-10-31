@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <!-- Defining fragment -->
+    <div
+      class="flex flex-row items-center justify-between"
+      th:fragment="WishesNavbar(title,id)"
+    >
+      <div class="flex flex-col">
+        <div class="text-sm text-gray-500">Ønsker tilknyttet</div>
+        <div class="text-2xl font-bold text-gray-700" th:text="${title}">
+          Title
+        </div>
+      </div>
+      <div class="flex flex-row space-x-2">
+        <a
+                class="p-2 w-[150px] bg-blue-500 hover:bg-blue-700 rounded-md flex justify-center transition-colors duration-200"
+                th:href="@{/share/sharewishlist(id=${id})}"
+        >
+          <h3 class="font-semibold text-white text-md">Del liste</h3>
+        </a>
+
+        <a
+                class="p-2 w-[200px] bg-indigo-500 hover:bg-indigo-700 rounded-md flex justify-center transition-colors duration-200"
+                th:href="@{/wish/create}"
+        >
+          <h3 class="font-semibold text-white text-md">Opret nyt ønske</h3>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

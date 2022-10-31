@@ -1,5 +1,6 @@
 package com.example.wishlistproject.Repository.Wishlist.Reserve;
 
+import com.example.wishlistproject.Models.Wishlist.Wish;
 import com.example.wishlistproject.Repository.Wishlist.Get.IGetter;
 import com.example.wishlistproject.Repository.Wishlist.Update.IUpdater;
 import org.springframework.stereotype.Service;
@@ -12,15 +13,23 @@ public class WishReservation implements IWishReservation{
     }
 
     @Override
-    public boolean reserve(String id, String name) {
-        var w = getter.getWishById(id);
-        w.reserve(name);
-        return updater.updateWish(w);
+    public boolean reserve(Wish wish) {
+        wish.reserve();
+        return updater.updateWish(wish);
     }
 
     @Override
-    public boolean unReserve(String id) {
-        return false;
+    public boolean unReserve(Wish wish) {
+        wish.unReserve();
+        return updater.updateWish(wish);
+    }
+
+    @Override
+    public boolean handleReserve(String wishId) {
+        Wish wish = getter.getWishById(wishId);
+        if (wish.getReserved() > 0)
+            return unReserve(wish);
+        return reserve(wish);
     }
 
     private final IGetter getter;
