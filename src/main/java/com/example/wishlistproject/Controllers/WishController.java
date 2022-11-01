@@ -26,24 +26,23 @@ public class WishController {
     }
 
     @GetMapping("wish/create")
-    public String create(Model model){
-        var id = model.getAttribute("wishlistId").toString();
-        var w = factory.empty(id);
+    public String create(@RequestParam(value = "wishlistId") String wishlistId, Model model){
+        var w = factory.empty(wishlistId);
         model.addAttribute("wish",w);
         return "createWishForm";
     }
 
     @PostMapping("wish/create")
     public String createPost(@ModelAttribute("wish") Wish wish){
+        String wishlistId = wish.getWishlistId();
         if(dbManager.addWish(wish.getWishlistId(),wish))
-            return "redirect:/wishlist/wishes?wishlistId=" + wish.getWishlistId();
+            return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
         return "redirect:err";
     }
 
     @PostMapping("wish/removeWish")
-    public String removeGet(@ModelAttribute("wish") Wish wish){
-        String wishlistId = wish.getWishlistId();
-        if(dbManager.removeWish(wish.getId()))
+    public String removeGet(@RequestParam(value = "wishId") String wishId, @RequestParam(value = "wishlistId") String wishlistId){
+        if(dbManager.removeWish(wishId))
             return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
         return "redirect:err";
     }

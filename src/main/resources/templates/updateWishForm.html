@@ -20,7 +20,7 @@
             <h1 class="text-5xl font-bold text-gray-700">Opdater ønske</h1>
             <form
               action="#"
-              th:action="@{/wish/removeWish(id=${wish.getId()})}"
+              th:action="@{/wish/removeWish(wishId=${wish.getId()}, wishlistId=${wish.wishlistId})}"
               method="post"
             >
               <button
