@@ -40,7 +40,7 @@ public class MySqlShareTokenFetcher implements IDbShareTokenFetcher {
             return null;
         var id = result.getString("Id");
         var key = result.getString("TokenKey");
-        var wishlistId = result.getString("wishlistId");
+        var wishlistId = result.getString("WishlistId");
         var link = result.getString("TokenLink");
         return new ShareToken(id,wishlistId,link,key);
     }

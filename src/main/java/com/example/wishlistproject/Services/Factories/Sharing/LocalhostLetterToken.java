@@ -46,5 +46,5 @@ public class LocalhostLetterToken implements IShareTokenFactory {
         return (char) newVal;
     }
 
-    private final String baseUrl = "http://localhost:8080/Sharing/";
+    private final String baseUrl = "http://localhost:8080/share/";
 }

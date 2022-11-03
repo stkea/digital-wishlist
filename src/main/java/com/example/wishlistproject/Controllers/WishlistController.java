@@ -16,28 +16,21 @@ public class WishlistController {
     public String getAll(Model model){
         var wls = dbManager.getAllWishlist();
         model.addAttribute("wishlists",wls);
-        return "wishlists";
-    }
-
-    @GetMapping("wishlist/wishlist")
-    public String get(@RequestParam String id, Model model){
-        var w = dbManager.getWishlistById(id);
-        model.addAttribute("wishlist",w);
-        return "wishlist";
+        return "/Wishlist/wishlists";
     }
 
     @GetMapping("/wishlist/create")
     public String createGet(Model model){
         var wl = factory.empty();
         model.addAttribute("wishlist",wl);
-        return "createForm";
+        return "/Wishlist/createForm";
     }
 
     @PostMapping("/wishlist/create")
     public String createPost(@ModelAttribute("wishlist") Wishlist wl){
         var result = dbManager.addWishlist(wl);
         if(result)
-            return String.format("redirect:/wishlist/wishes?wishlistId=%s", wl.getId());
+            return String.format("redirect:/wishlist?wishlistId=%s", wl.getId());
         return "redirect:err";
     }
 
@@ -55,7 +48,7 @@ public class WishlistController {
             return "redirect:bad_input";
         var wl = dbManager.getWishlistById(id);
         model.addAttribute("wishlist");
-        return "updateForm";
+        return "/Wishlist/updateForm";
     }
 
     @PostMapping("/update")
