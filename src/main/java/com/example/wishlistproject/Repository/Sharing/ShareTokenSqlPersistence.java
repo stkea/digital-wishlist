@@ -23,7 +23,7 @@ public class ShareTokenSqlPersistence implements ISharingTokenPersistence{
         var tokenKey = token.getTokenKey();
         var statement = String.format("""
                     INSERT INTO ShareToken(Id,WishlistId, TokenLink,TokenKey)
-                    VALUES('%s','%s','%s','%s','%s');
+                    VALUES('%s','%s','%s','%s');
                 """,tokenId,wishlistId,tokenLink,tokenKey);
         return statement;
     }

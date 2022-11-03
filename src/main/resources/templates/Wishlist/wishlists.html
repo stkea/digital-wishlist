@@ -14,11 +14,11 @@
         >
           <div
             th:each="wl : ${wishlists}"
-            class="w-full h-[150px] rounded-xl bg-white shadow-lg"
+            class="w-full h-[150px] rounded-md bg-white hover:bg-gray-200 transition-colors duration-200 shadow-lg"
           >
             <!-- Wishlist card -->
             <div
-              th:replace="fragments/WishlistCard.html ::
+              th:replace="fragments/cards/WishlistCard.html ::
             wishlist(${wl})"
             />
 

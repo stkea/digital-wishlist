@@ -21,7 +21,7 @@
             th:each="w : ${wishes}"
             class="w-full h-[250px] rounded-md bg-white shadow-lg"
           >
-            <div th:replace="fragments/WishCard.html :: wish(${w})" />
+            <div th:replace="fragments/cards/WishCard.html :: wish(${w})" />
           </div>
         </div>
       </div>

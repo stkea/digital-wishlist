@@ -15,19 +15,20 @@ public class ShareController {
     @GetMapping("share/sharewishlist")
     public String shareWishlist(@RequestParam(value = "id") String id, Model model){
         var token = tokenFactory.token(id);
-        if(tokenPersistence.persist(token))
+        if(!tokenPersistence.persist(token))
             return "redirect:err";
         model.addAttribute("shareLink",token.getTokenLink());
-        return "success";
+        model.addAttribute("wishlistId", id);
+        return "/Wishlist/sharelink";
     }
 
-    @GetMapping("share/shareToken/{tokenKey}")
+    @GetMapping("share/{tokenKey}")
     public String handleToken(@PathVariable String tokenKey){
         if(!tokenFactory.validateKey(tokenKey))
             return "redirect:/invalid_share_key/" + tokenKey;
         var token = tokenFetcher.get(tokenKey);
         if(token != null)
-            return "redirect:/wish/wishes?wishlistId=" + token.getWishlistId();
+            return "redirect:/wishlist?wishlistId=" + token.getWishlistId();
         return "redirect:/key_not_found/" + tokenKey;
     }
 

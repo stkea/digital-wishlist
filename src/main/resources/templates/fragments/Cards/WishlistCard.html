@@ -8,7 +8,7 @@
     <a
       class="w-full h-full"
       th:fragment="wishlist(wishlist)"
-      th:href="@{/wishlist/wishes(wishlistId=${wishlist.getId()})}"
+      th:href="@{/wishlist(wishlistId=${wishlist.getId()})}"
     >
       <div class="h-full grid p-4">
         <div class="flex flex-col space-y-2">
