@@ -1,5 +1,6 @@
 package com.example.wishlistproject.Controllers;
 
+import com.example.wishlistproject.Models.Sharing.ShareToken;
 import com.example.wishlistproject.Repository.Sharing.IDbShareTokenFetcher;
 import com.example.wishlistproject.Repository.Sharing.ISharingTokenPersistence;
 import com.example.wishlistproject.Services.Factories.Sharing.IShareTokenFactory;
@@ -14,9 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ShareController {
     @GetMapping("share/sharewishlist")
     public String shareWishlist(@RequestParam(value = "id") String id, Model model){
-        var token = tokenFactory.token(id);
-        if(!tokenPersistence.persist(token))
-            return "redirect:err";
+        var found = tokenFetcher.getFromWishlistId(id);
+        ShareToken token;
+        if(found != null){
+            token = found;
+        }
+        else  {
+            token = tokenFactory.token(id);
+            if(!tokenPersistence.persist(token))
+                return "redirect:err";
+        }
         model.addAttribute("shareLink",token.getTokenLink());
         model.addAttribute("wishlistId", id);
         return "/Wishlist/sharelink";

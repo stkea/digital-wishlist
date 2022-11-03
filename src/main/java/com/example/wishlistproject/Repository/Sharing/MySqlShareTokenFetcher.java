@@ -22,6 +22,16 @@ public class MySqlShareTokenFetcher implements IDbShareTokenFetcher {
         }
     }
 
+    @Override
+    public ShareToken getFromWishlistId(String wishlistID) {
+        try {
+            var result = sqlContext.runQuery(queryFromWishlistId(wishlistID));
+            return fromResultSet(result);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
     private boolean validate(String key){
         return true;
     }
@@ -32,6 +42,15 @@ public class MySqlShareTokenFetcher implements IDbShareTokenFetcher {
                     WHERE TokenKey = '%s'
                     LIMIT 1;
                 """,key);
+        return query;
+    }
+
+    private String queryFromWishlistId(String id){
+        var query = String.format("""
+                    SELECT * FROM ShareToken
+                    WHERE WishlistId = '%s'
+                    LIMIT 1;
+                """,id);
         return query;
     }
 

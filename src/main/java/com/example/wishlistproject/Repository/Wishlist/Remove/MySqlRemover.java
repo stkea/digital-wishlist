@@ -12,12 +12,21 @@ public class MySqlRemover implements IDbRemover {
     @Override
     public boolean removeWishlistById(String id) {
         return removeAssociatedWishes(id) &&
+                removeAssociatedToken(id) &&
                 removeWishList(id);
     }
 
     private boolean removeAssociatedWishes(String id){
         var result = sqlContext.runStatement(String.format("""
                 DELETE FROM Wish
+                WHERE WishlistId='%s';
+                """,id));
+        return result;
+    }
+
+    private boolean removeAssociatedToken(String id){
+        var result = sqlContext.runStatement(String.format("""
+                DELETE FROM ShareToken
                 WHERE WishlistId='%s';
                 """,id));
         return result;

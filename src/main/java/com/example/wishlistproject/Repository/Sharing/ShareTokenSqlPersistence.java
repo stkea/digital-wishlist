@@ -6,13 +6,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ShareTokenSqlPersistence implements ISharingTokenPersistence{
-    public ShareTokenSqlPersistence(IDbSqlContext sqlContext) {
+    public ShareTokenSqlPersistence(IDbSqlContext sqlContext, IDbShareTokenFetcher fetcher) {
         this.sqlContext = sqlContext;
+        this.fetcher = fetcher;
     }
 
     @Override
-    public boolean persist(ShareToken token) {
-        var result = sqlContext.runStatement(statement(token));
+    public boolean persist(ShareToken shareToken) {
+        var token = fetcher.get(shareToken.getTokenKey());
+        if(token != null)
+            return false;
+        var statement = statement(shareToken);
+        var result = sqlContext.runStatement(statement);
         return result;
     }
 
@@ -29,4 +34,5 @@ public class ShareTokenSqlPersistence implements ISharingTokenPersistence{
     }
 
     private final IDbSqlContext sqlContext;
+    private final IDbShareTokenFetcher fetcher;
 }
