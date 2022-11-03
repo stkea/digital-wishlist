@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-
 @Controller
 public class WishController {
     @GetMapping("wishlist/wishes")
@@ -33,7 +31,7 @@ public class WishController {
     }
 
     @PostMapping("wish/create")
-    public String createPost(@ModelAttribute("wish") Wish wish){
+    public String create(@ModelAttribute("wish") Wish wish){
         String wishlistId = wish.getWishlistId();
         if(dbManager.addWish(wish.getWishlistId(),wish))
             return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
@@ -41,14 +39,14 @@ public class WishController {
     }
 
     @PostMapping("wish/removeWish")
-    public String removeGet(@RequestParam(value = "wishId") String wishId, @RequestParam(value = "wishlistId") String wishlistId){
+    public String remove(@RequestParam(value = "wishId") String wishId, @RequestParam(value = "wishlistId") String wishlistId){
         if(dbManager.removeWish(wishId))
             return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
         return "redirect:err";
     }
 
     @GetMapping("wish/update")
-    public String updateGet(@RequestParam String id, String wishlistId , Model model){
+    public String update(@RequestParam String id, String wishlistId , Model model){
         var w = dbManager.getWishById(id);
         if(w == null)
             return "redirect:/wishlist/wishes?wishlistId=" + wishlistId;
@@ -57,7 +55,7 @@ public class WishController {
     }
 
     @PostMapping("wish/update")
-    public String updateGet(@ModelAttribute("wish") Wish wish){
+    public String update(@ModelAttribute("wish") Wish wish){
         if(dbManager.updateWish(wish))
             return "redirect:/wishlist/wishes?wishlistId=" + wish.getWishlistId();
         return "redirect:err";

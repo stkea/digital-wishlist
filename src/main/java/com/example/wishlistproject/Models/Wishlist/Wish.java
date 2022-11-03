@@ -26,13 +26,6 @@ public class Wish {
         this.reserved = reserved;
     }
 
-    private String id;
-    private String productImageURL;
-    private String wishlistId;
-    private int reserved;
-    private String productTitle;
-    private double productPrice;
-
     public String getWishlistId() {
         return wishlistId;
     }
@@ -81,5 +74,12 @@ public class Wish {
     public String getId() {
         return id;
     }
+
+    private String id;
+    private String productImageURL;
+    private String wishlistId;
+    private int reserved;
+    private String productTitle;
+    private double productPrice;
 
 }

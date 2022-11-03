@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Service
-public class DbShareTokenFetcher implements IDbShareTokenFetcher {
-    public DbShareTokenFetcher(IDbSqlContext sqlContext) {
+public class MySqlShareTokenFetcher implements IDbShareTokenFetcher {
+    public MySqlShareTokenFetcher(IDbSqlContext sqlContext) {
         this.sqlContext = sqlContext;
     }
 

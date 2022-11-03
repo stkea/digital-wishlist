@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.Locale;
 
 @Service
-public class DBAdder implements IAdder{
+public class MySqlPersistence implements IDbPersistence {
 
-    public DBAdder(IDbSqlContext sqlContext) {
+    public MySqlPersistence(IDbSqlContext sqlContext) {
         this.sqlContext = sqlContext;
     }
 

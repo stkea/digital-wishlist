@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DBGetter implements IGetter{
-    public DBGetter(IDbSqlContext sqlContext, IWishlistFactory wishlistFactory, IWishFactory wishFactory) {
+public class MySqlFetcher implements IDbFetcher {
+    public MySqlFetcher(IDbSqlContext sqlContext, IWishlistFactory wishlistFactory, IWishFactory wishFactory) {
         this.sqlContext = sqlContext;
         this.wishlistFactory = wishlistFactory;
         this.wishFactory = wishFactory;

@@ -1,13 +1,13 @@
 package com.example.wishlistproject.Repository.Wishlist.Reserve;
 
 import com.example.wishlistproject.Models.Wishlist.Wish;
-import com.example.wishlistproject.Repository.Wishlist.Get.IGetter;
-import com.example.wishlistproject.Repository.Wishlist.Update.IUpdater;
+import com.example.wishlistproject.Repository.Wishlist.Get.IDbFetcher;
+import com.example.wishlistproject.Repository.Wishlist.Update.IDbUpdater;
 import org.springframework.stereotype.Service;
 
 @Service
 public class WishReservation implements IWishReservation{
-    public WishReservation(IGetter getter, IUpdater updater) {
+    public WishReservation(IDbFetcher getter, IDbUpdater updater) {
         this.getter = getter;
         this.updater = updater;
     }
@@ -32,6 +32,6 @@ public class WishReservation implements IWishReservation{
         return reserve(wish);
     }
 
-    private final IGetter getter;
-    private final IUpdater updater;
+    private final IDbFetcher getter;
+    private final IDbUpdater updater;
 }

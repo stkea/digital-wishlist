@@ -4,8 +4,8 @@ import com.example.wishlistproject.Repository.SqlContext.IDbSqlContext;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DbRemover implements IRemover {
-    public DbRemover(IDbSqlContext sqlContext) {
+public class MySqlRemover implements IDbRemover {
+    public MySqlRemover(IDbSqlContext sqlContext) {
         this.sqlContext = sqlContext;
     }
 

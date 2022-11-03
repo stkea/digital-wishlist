@@ -5,7 +5,7 @@ import com.example.wishlistproject.Models.Wishlist.Wishlist;
 
 import java.util.List;
 
-public interface IGetter {
+public interface IDbFetcher {
     Wishlist getWishlistById(String id);
     List<Wishlist> getAllWishlist();
     Wish getWishById(String id);
