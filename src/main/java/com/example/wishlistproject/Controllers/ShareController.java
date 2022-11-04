@@ -30,7 +30,7 @@ public class ShareController {
         return "/Wishlist/sharelink";
     }
 
-    @GetMapping(" ")
+    @GetMapping("share/{tokenKey}")
     public String handleToken(@PathVariable String tokenKey){
         if(!tokenFactory.validateKey(tokenKey))
             return "redirect:/invalid_share_key/" + tokenKey;
